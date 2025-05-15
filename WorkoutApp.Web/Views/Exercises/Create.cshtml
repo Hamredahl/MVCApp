@@ -1,0 +1,24 @@
+﻿@model WorkoutApp.Web.Models.Exercise
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create new exercise</title>
+        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
+    </head>
+    <body>
+        <h2>Add new exercise</h2>
+        <form asp-controller="exercises" asp-action="create">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+            <span asp-validation-for="Name" style="color:red;"></span>
+            <label asp-for="Sets"></label>
+            <input asp-for="Sets" />
+            <span asp-validation-for="Sets" style="color:red;"></span>
+            <label asp-for="Reps"></label>
+            <input asp-for="Reps" />
+            <span asp-validation-for="Reps" style="color:red;"></span>
+            <input type="submit"/>
+        </form>
+    </body>
+</html>
