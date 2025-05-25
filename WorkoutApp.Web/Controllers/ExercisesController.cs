@@ -1,18 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WorkoutApp.Web.Models;
 using WorkoutApp.Web.Services;
+using WorkoutApp.Web.Views.Exercises;
 
 namespace WorkoutApp.Web.Controllers;
 
-public class ExercisesController : Controller
+public class ExercisesController(ExerciseService exerciseService) : Controller
 {
-    ExerciseService exerciseService = new ExerciseService();
-
     [HttpGet("")]
     public IActionResult Index()
     {
         var model = exerciseService.GetAll();
-        return View(model);
+        var viewModel = new IndexVM
+        {
+            Exercises = model
+                .Select(e => new IndexVM.ExerciseVM
+                {
+                    Name = e.Name,
+                    Id = e.Id,
+                })
+                .ToArray()
+        };
+        return View(viewModel);
     }
 
     [HttpGet("create")]
@@ -22,17 +31,33 @@ public class ExercisesController : Controller
     }
 
     [HttpPost("create")]
-    public IActionResult Create(Exercise exercise)
+    public IActionResult Create(CreateVM viewModel)
     {
         if (!ModelState.IsValid) return View();
+
+        Exercise exercise = new()
+        {
+            Name = viewModel.Name,
+            Sets = viewModel.Sets,
+            Reps = viewModel.Reps,
+        };
         exerciseService.Add(exercise);
-        return RedirectToAction("Index");
+
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet("details/{Id}")]
     public IActionResult Details(int Id)
     {
         var model = exerciseService.GetById(Id);
-        return View(model);
+
+        DetailsVM viewModel = new()
+        {
+            Name = model.Name,
+            Sets = model.Sets,
+            Reps = model.Reps,
+        };
+
+        return View(viewModel);
     }
 }

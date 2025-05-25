@@ -1,19 +1,11 @@
-﻿@model WorkoutApp.Web.Models.Exercise[]
-@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Exercise list</title>
-        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
-    </head>
-    <body>
-        <h2>Exercises</h2>
-        <ol style="list-style-type:none;">
-        @foreach(var exercise in Model)
-        {
-            <li><a asp-controller="exercises" asp-action="details" asp-route-id="@exercise.Id">@exercise.Name</a></li>
-        }
-        </ol>
-        <a asp-controller="exercises" asp-action="create">New exercise</a>
-    </body>
-</html>
+﻿@model IndexVM
+@{
+    ViewBag.Title = "Exercises";
+}
+<ol style="list-style-type:none;">
+    @foreach(var exercise in Model.Exercises)
+    {
+        <li><a asp-controller="exercises" asp-action="details" asp-route-id="@exercise.Id">@exercise.Name</a></li>
+    }
+</ol>
+<a asp-controller="exercises" asp-action="create">New exercise</a>

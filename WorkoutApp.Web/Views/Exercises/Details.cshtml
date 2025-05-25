@@ -1,17 +1,9 @@
-﻿@model WorkoutApp.Web.Models.Exercise
-@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>@Model.Name</title>
-        <link rel="stylesheet" href="https://unpkg.com/@@picocss/pico@@latest/css/pico.classless.min.css">
-    </head>
-    <body>
-        <h2>@Model.Name</h2>
-        <ol style="list-style-type:none;">
-            <li>Sets: @Model.Sets</li>
-            <li>Reps: @Model.Reps</li>
-        </ol>
-        <a asp-controller="exercises" asp-action="index">Back to exercise list</a>
-    </body>
-</html>
+﻿@model DetailsVM
+@{
+    ViewBag.Title = @Model.Name;
+}
+<ol style="list-style-type:none;">
+    <li>Sets: @Model.Sets</li>
+    <li>Reps: @Model.Reps</li>
+</ol>
+<a asp-controller="exercises" asp-action="index">Go back</a>

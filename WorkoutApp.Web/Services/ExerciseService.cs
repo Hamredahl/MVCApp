@@ -8,7 +8,7 @@ public class ExerciseService
 
     public void Add(Exercise exercise)
     {
-        exercise.Id = exercises.Count == 0 ? 1 : exercises.Max(e => e.Id);
+        exercise.Id = exercises.Count == 0 ? 1 : exercises.Max(e => e.Id) + 1;
         exercises.Add(exercise);
     }
 
